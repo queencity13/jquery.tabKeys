@@ -7,27 +7,29 @@
       var $nav = this;
       var $lis = $nav.find('li');
       
-      $(document).bind('keydown', 'ctrl+shift+left', function() {
+      var leftKey = function() {
         $nav.find('li.active').prev('li').find('a').click();
-      });
-
-      $(document).bind('keydown', 'ctrl+shift+right', function() {
+      }
+      
+      var rightKey = function() {
         $nav.find('li.active').next('li').find('a').click();
-      });
+      }
 
       var numberKey = function(event) {
         var index = event.which - 49;
         if (index === -1) { index = 9 }; // normalize for 0 key
         $($lis[index]).find('a').click();
       }
-
+      
+      $(document).bind('keydown', 'ctrl+shift+left', leftKey);
+      $(':input').bind('keydown', 'ctrl+shift+left', leftKey);
+      $(document).bind('keydown', 'ctrl+shift+right', rightKey);
+      $(':input').bind('keydown', 'ctrl+shift+right', rightKey);
+      
       for(var i=0; i <= $lis.length; i++) {
         $(document).bind('keydown', 'ctrl+shift+' + i, numberKey);
+        $(':input').bind('keydown', 'ctrl+shift+' + i, numberKey);
       }
-
-      // TODO: go to first field on next tab if tabbing from last field
-
-    }
   });
 
 

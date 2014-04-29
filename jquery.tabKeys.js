@@ -30,6 +30,17 @@
         $(document).bind('keydown', 'ctrl+shift+' + i, numberKey);
         $(':input').bind('keydown', 'ctrl+shift+' + i, numberKey);
       }
+      
+      var blurNext = function(event) {
+        console.log('blur');
+        rightKey();
+        $('.tab-pane.active :input:first').focus();
+      }
+      
+      $('.tab-pane').each(function(i, element) {
+        $(element).find(':input:not(button):last').on('blur', blurNext);
+      });
+    }
   });
 
 
